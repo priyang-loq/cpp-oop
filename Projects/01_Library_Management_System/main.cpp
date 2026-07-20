@@ -96,7 +96,7 @@ void Book::displayTotalBooks()
 int main()
 {
     Book books[100];
-    int bookcount = 0;
+    int bookCount = 0;
     int choice;
     do
     {
@@ -112,23 +112,27 @@ int main()
         switch (choice)
         {
         case 1:
-            // Add Book
+            books[bookCount].setData();
+            bookCount++;
             break;
 
         case 2:
-            // Display Books
+            for (int i = 0; i < bookCount; i++)
+            {
+                books[i].displayBook();
+            }
             break;
 
         case 3:
-            // Display Total Books
+            Book::displayTotalBooks();
             break;
 
         case 4:
-            // Exit
+            cout << "Thank you for using Library Management System.\n";
             break;
 
         default:
-            // Invalid Choice
+            cout << "Please enter a valid choice";
         }
     } while (choice != 4);
     return 0;
