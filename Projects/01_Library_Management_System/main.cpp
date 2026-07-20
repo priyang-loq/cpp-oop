@@ -95,13 +95,41 @@ void Book::displayTotalBooks()
 
 int main()
 {
-    Book obj1;
-    obj1.setData();
-    obj1.displayBook();
-    obj1.issueBook();
-    obj1.displayBook();
-    obj1.returnBook();
-    obj1.displayBook();
-    Book ::displayTotalBooks();
+    Book books[100];
+    int bookcount = 0;
+    int choice;
+    do
+    {
+        cout << "========== Library Management System ==========\n";
+        cout << "Choose an option:\n";
+        cout << "1. Add Book\n";
+        cout << "2. Display All Books\n";
+        cout << "3. Total Books\n";
+        cout << "4. Exit\n\n";
+        cout << "Enter Choice :";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            // Add Book
+            break;
+
+        case 2:
+            // Display Books
+            break;
+
+        case 3:
+            // Display Total Books
+            break;
+
+        case 4:
+            // Exit
+            break;
+
+        default:
+            // Invalid Choice
+        }
+    } while (choice != 4);
     return 0;
 }
