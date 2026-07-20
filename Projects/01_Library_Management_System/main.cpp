@@ -112,14 +112,28 @@ int main()
         switch (choice)
         {
         case 1:
-            books[bookCount].setData();
-            bookCount++;
+            if (bookCount < 100)
+            {
+                books[bookCount].setData();
+                bookCount++;
+            }
+            else
+            {
+                cout << "Library is full.\n";
+            }
             break;
 
         case 2:
-            for (int i = 0; i < bookCount; i++)
+            if (bookCount == 0)
             {
-                books[i].displayBook();
+                cout << "No books available.\n";
+            }
+            else
+            {
+                for (int i = 0; i < bookCount; i++)
+                {
+                    books[i].displayBook();
+                }
             }
             break;
 
@@ -132,7 +146,7 @@ int main()
             break;
 
         default:
-            cout << "Please enter a valid choice";
+            cout << "Please enter a valid choice\n";
         }
     } while (choice != 4);
     return 0;
