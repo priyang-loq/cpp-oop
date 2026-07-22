@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+class Library;
+
 class Book
 {
 
@@ -23,6 +25,7 @@ public:
     static void displayTotalBooks();
     static void increaseTotalBooks();
     friend void compareBooks(Book, Book);
+    friend class Library;
 };
 
 void Book::setData()
@@ -119,8 +122,27 @@ void compareBooks(Book b1, Book b2)
     }
 }
 
+class Library
+{
+public:
+    void showBook(Book b)
+    {
+        cout << "Book ID : " << b.bookId << endl;
+        cout << "Title   : " << b.title << endl;
+        cout << "Author  : " << b.author << endl;
+
+        if (b.issued)
+            cout << "Status : Issued\n";
+        else
+            cout << "Status : Available\n";
+
+        cout << endl;
+    }
+};
+
 int main()
 {
+    Library lib;
     Book books[100];
     int bookCount = 0;
     int choice;
@@ -284,6 +306,8 @@ int main()
             cout << "Please enter a valid choice\n";
         }
     } while (choice != 7);
+
+    lib.showBook(books[0]);
 
     return 0;
 }
