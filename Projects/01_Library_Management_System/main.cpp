@@ -22,6 +22,7 @@ public:
 
     static void displayTotalBooks();
     static void increaseTotalBooks();
+    friend void compareBooks(Book, Book);
 };
 
 void Book::setData()
@@ -98,6 +99,26 @@ void Book::increaseTotalBooks()
     totalBooks++;
 }
 
+void compareBooks(Book b1, Book b2)
+{
+    if (b1.bookId < b2.bookId)
+    {
+        cout << "Book " << b1.bookId
+             << " comes before Book "
+             << b2.bookId << endl;
+    }
+    else if (b1.bookId > b2.bookId)
+    {
+        cout << "Book " << b2.bookId
+             << " comes before Book "
+             << b1.bookId << endl;
+    }
+    else
+    {
+        cout << "Both books have the same Book ID.\n";
+    }
+}
+
 int main()
 {
     Book books[100];
@@ -111,8 +132,9 @@ int main()
         cout << "2. Display All Books\n";
         cout << "3. Issue Book\n";
         cout << "4. Return Book\n";
-        cout << "5. Total Books\n";
-        cout << "6. Exit\n\n";
+        cout << "5. Compare Books\n";
+        cout << "6. Total Books\n";
+        cout << "7. Exit\n\n";
         cout << "Enter Choice :";
         cin >> choice;
 
@@ -222,16 +244,46 @@ int main()
         }
 
         case 5:
+        {
+            if (bookCount < 2)
+            {
+                cout << "At least two books are required.\n";
+                break;
+            }
+
+            int first, second;
+
+            cout << "Enter first book number (1-" << bookCount << "): ";
+            cin >> first;
+
+            cout << "Enter second book number (1-" << bookCount << "): ";
+            cin >> second;
+
+            if (first >= 1 && first <= bookCount &&
+                second >= 1 && second <= bookCount)
+            {
+                compareBooks(books[first - 1], books[second - 1]);
+            }
+            else
+            {
+                cout << "Invalid book number.\n";
+            }
+
+            break;
+        }
+
+        case 6:
             Book::displayTotalBooks();
             break;
 
-        case 6:
+        case 7:
             cout << "Thank you for using Library Management System.\n";
             break;
 
         default:
             cout << "Please enter a valid choice\n";
         }
-    } while (choice != 6);
+    } while (choice != 7);
+
     return 0;
 }
