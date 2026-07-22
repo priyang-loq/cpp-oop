@@ -125,18 +125,25 @@ void compareBooks(Book b1, Book b2)
 class Library
 {
 public:
-    void showBook(Book b)
+    void showIssuedBooks(Book books[], int count)
     {
-        cout << "Book ID : " << b.bookId << endl;
-        cout << "Title   : " << b.title << endl;
-        cout << "Author  : " << b.author << endl;
+        bool found = false;
 
-        if (b.issued)
-            cout << "Status : Issued\n";
-        else
-            cout << "Status : Available\n";
+        for (int i = 0; i < count; i++)
+        {
+            if (books[i].issued)
+            {
+                cout << "Book ID : " << books[i].bookId << endl;
+                cout << "Title   : " << books[i].title << endl;
+                cout << "Author  : " << books[i].author << endl;
+                cout << "Status  : Issued\n\n";
 
-        cout << endl;
+                found = true;
+            }
+        }
+
+        if (!found)
+            cout << "No issued books.\n";
     }
 };
 
@@ -155,8 +162,9 @@ int main()
         cout << "3. Issue Book\n";
         cout << "4. Return Book\n";
         cout << "5. Compare Books\n";
-        cout << "6. Total Books\n";
-        cout << "7. Exit\n\n";
+        cout << "6. Show Issued Books\n";
+        cout << "7. Total Books\n";
+        cout << "8. Exit\n\n";
         cout << "Enter Choice :";
         cin >> choice;
 
@@ -295,19 +303,21 @@ int main()
         }
 
         case 6:
-            Book::displayTotalBooks();
+            lib.showIssuedBooks(books, bookCount);
             break;
 
         case 7:
+            Book::displayTotalBooks();
+            break;
+
+        case 8:
             cout << "Thank you for using Library Management System.\n";
             break;
 
         default:
             cout << "Please enter a valid choice\n";
         }
-    } while (choice != 7);
-
-    lib.showBook(books[0]);
+    } while (choice != 8);
 
     return 0;
 }
