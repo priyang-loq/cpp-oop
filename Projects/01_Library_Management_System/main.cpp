@@ -21,6 +21,7 @@ public:
     int getBookId();
 
     static void displayTotalBooks();
+    static void increaseTotalBooks();
 };
 
 void Book::setData()
@@ -35,7 +36,6 @@ void Book::setData()
     getline(cin, author);
 
     issued = false;
-    totalBooks++;
 }
 
 void Book ::displayBook()
@@ -93,6 +93,11 @@ void Book::displayTotalBooks()
     cout << "Total Books : " << totalBooks << endl;
 }
 
+void Book::increaseTotalBooks()
+{
+    totalBooks++;
+}
+
 int main()
 {
     Book books[100];
@@ -114,17 +119,39 @@ int main()
         switch (choice)
         {
         case 1:
-            if (bookCount < 100)
+        {
+            if (bookCount >= 100)
             {
-                books[bookCount].setData();
-                bookCount++;
-                cout << "Book added successfully.\n";
+                cout << "Library is full.\n";
+                break;
+            }
+
+            books[bookCount].setData();
+
+            bool duplicate = false;
+
+            for (int i = 0; i < bookCount; i++)
+            {
+                if (books[i].getBookId() == books[bookCount].getBookId())
+                {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (duplicate)
+            {
+                cout << "Book ID already exists. Book not added.\n";
             }
             else
             {
-                cout << "Library is full.\n";
+                bookCount++;
+                Book::increaseTotalBooks();
+                cout << "Book added successfully.\n";
             }
+
             break;
+        }
 
         case 2:
             if (bookCount == 0)
@@ -142,6 +169,11 @@ int main()
 
         case 3:
         {
+            if (bookCount == 0)
+            {
+                cout << "No books available.\n";
+                break;
+            }
             int id;
             cout << "Enter Book ID : ";
             cin >> id;
@@ -164,6 +196,11 @@ int main()
 
         case 4:
         {
+            if (bookCount == 0)
+            {
+                cout << "No books available.\n";
+                break;
+            }
             int id;
             cout << "Enter Book ID : ";
             cin >> id;
