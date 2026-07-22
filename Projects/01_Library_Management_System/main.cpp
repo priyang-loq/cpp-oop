@@ -104,8 +104,9 @@ int main()
         cout << "Choose an option:\n";
         cout << "1. Add Book\n";
         cout << "2. Display All Books\n";
-        cout << "3. Total Books\n";
-        cout << "4. Exit\n\n";
+        cout << "3. Issue Book\n";
+        cout << "4. Total Books\n";
+        cout << "5. Exit\n\n";
         cout << "Enter Choice :";
         cin >> choice;
 
@@ -116,6 +117,7 @@ int main()
             {
                 books[bookCount].setData();
                 bookCount++;
+                cout << "Book added successfully.\n";
             }
             else
             {
@@ -138,16 +140,36 @@ int main()
             break;
 
         case 3:
-            Book::displayTotalBooks();
+            int id;
+            cout << "Enter Book ID : ";
+            cin >> id;
+            bool found = false;
+            for (int i = 0; i < bookCount; i++)
+            {
+                if (books[i].getBookId() == id)
+                {
+                    books[i].issueBook();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                cout << "Book not found.\n";
+            }
             break;
 
         case 4:
+            Book::displayTotalBooks();
+            break;
+
+        case 5:
             cout << "Thank you for using Library Management System.\n";
             break;
 
         default:
             cout << "Please enter a valid choice\n";
         }
-    } while (choice != 4);
+    } while (choice != 5);
     return 0;
 }
