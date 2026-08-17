@@ -15,7 +15,13 @@ private:
     static int totalBooks;
 
 public:
-    void setData();
+    Book();
+    Book(int id, string t, string a);
+    ~Book()
+    {
+        cout << "Book object destroyed.\n";
+    }
+    // void setData();
     void displayBook();
     void issueBook();
     void returnBook();
@@ -28,19 +34,35 @@ public:
     friend class Library;
 };
 
-void Book::setData()
+Book ::Book()
 {
-    cout << "Enter book id :- ";
-    cin >> bookId;
-
-    cout << "Enter book title :- ";
-    getline(cin >> ws, title);
-
-    cout << "Enter book author :- ";
-    getline(cin, author);
-
+    bookId = 0;
+    title = "";
+    author = "";
     issued = false;
 }
+
+Book ::Book(int id, string t, string a)
+{
+    bookId = id;
+    title = t;
+    author = a;
+    issued = false;
+}
+
+// void Book::setData()
+// {
+//     cout << "Enter book id :- ";
+//     cin >> bookId;
+
+//     cout << "Enter book title :- ";
+//     getline(cin >> ws, title);
+
+//     cout << "Enter book author :- ";
+//     getline(cin, author);
+
+//     issued = false;
+// }
 
 void Book ::displayBook()
 {
@@ -178,13 +200,26 @@ int main()
                 break;
             }
 
-            books[bookCount].setData();
+            int id;
+            string title;
+            string author;
+
+            cout << "Enter book id :- ";
+            cin >> id;
+
+            cout << "Enter book title :- ";
+            getline(cin >> ws, title);
+
+            cout << "Enter book author :- ";
+            getline(cin, author);
+
+            Book newBook(id, title, author);
 
             bool duplicate = false;
 
             for (int i = 0; i < bookCount; i++)
             {
-                if (books[i].getBookId() == books[bookCount].getBookId())
+                if (books[i].getBookId() == newBook.getBookId())
                 {
                     duplicate = true;
                     break;
@@ -197,8 +232,10 @@ int main()
             }
             else
             {
+                books[bookCount] = newBook;
                 bookCount++;
                 Book::increaseTotalBooks();
+
                 cout << "Book added successfully.\n";
             }
 
