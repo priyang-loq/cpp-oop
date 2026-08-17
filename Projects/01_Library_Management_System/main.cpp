@@ -17,6 +17,7 @@ private:
 public:
     Book();
     Book(int id, string t, string a);
+    Book(const Book &b);
     ~Book()
     {
         cout << "Book object destroyed.\n";
@@ -30,7 +31,7 @@ public:
 
     static void displayTotalBooks();
     static void increaseTotalBooks();
-    friend void compareBooks(Book, Book);
+    friend void compareBooks(const Book &, const Book &);
     friend class Library;
 };
 
@@ -48,6 +49,14 @@ Book ::Book(int id, string t, string a)
     title = t;
     author = a;
     issued = false;
+}
+
+Book ::Book(const Book &b)
+{
+    bookId = b.bookId;
+    title = b.title;
+    author = b.author;
+    issued = b.issued;
 }
 
 // void Book::setData()
@@ -123,8 +132,7 @@ void Book::increaseTotalBooks()
 {
     totalBooks++;
 }
-
-void compareBooks(Book b1, Book b2)
+void compareBooks(const Book &b1, const Book &b2)
 {
     if (b1.bookId < b2.bookId)
     {
